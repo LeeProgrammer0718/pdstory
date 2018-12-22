@@ -2,28 +2,30 @@ import math
 import pygame
 
 class Mob:
-    self.locationX = 0
-    self.locationY = 0
-    self.health = 0
-    self.imageObject = None
-
-    self.colliderRange = 0
-    def __init__(self, x, y, health, imageObject):
-        self.locationX = x
-        self.locationY = y
+    def __init__(self,health,imageObject):
         self.health = health
         self.imageObject = imageObject
+        self.health = 0
+        self.colliderRange = 0
 
     #collider
+    def setting(self,pos,questlist,itemnum):
+        #questlist = None or list , itemnum --캐릭터에게 줄 아이템 이름 list형태로
+        self.locationX = pos[0]
+        self.locationY = pos[1]
+        self.quest = questlist
+        self.item = itemnum
+        #다른거 사용하기전 무조건 실행
+        
     def defineCollider(self,radius):
         self.colliderRange = radius
         
-    def isCollide(self,x,y):
-        if not colliderRange = 0:
-            if math.sqrt((locationX-x)**2+(locationY-y)**2))<colliderRange:
+    def Collide(self,x,y):
+        if not self.colliderRange == 0:
+            if math.sqrt((self.locationX-x)**2+(self.locationY-y)**2)<self.colliderRange:
                 return True
-            else: False
-
+            else:
+                return False
     #move
     def move(self, deltaX, deltaY):
         self.locationX += deltaX
@@ -34,8 +36,14 @@ class Mob:
             self.locationX = x
         if not y == "N":
             self.locationY = y
+
+    def givequest(self):
+        return self.quest
     
+    def giveitem(self):
+        return self.item
     #damage
+    
     def giveDamage(self, damage):
         health -= damage
 
@@ -44,6 +52,6 @@ class Mob:
     
     #UPDATE
     def draw(self, surface):
-        surface.blit(imageObject, (locationX,locationY))
+        surface.blit(self.imageObject, (self.locationX,self.locationY))
         
     
